@@ -11,7 +11,7 @@ func GetInput(day int) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	return string(content)
+	return strings.TrimSpace(string(content))
 }
 
 func GetLines(input string) []string {
