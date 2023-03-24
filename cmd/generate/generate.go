@@ -35,7 +35,7 @@ func main() {
 	inputFilePath := path.Join(dirName, "input.txt")
 
 	if !pathExists(dirName) {
-		os.Mkdir(dirName, 0666)
+		os.Mkdir(dirName, 0777)
 	}
 	if !pathExists(implFilePath) {
 		os.WriteFile(implFilePath, []byte(implContent), 0666)
