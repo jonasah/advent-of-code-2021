@@ -79,12 +79,12 @@ import (
 
 func TestPart1(t *testing.T) {
 	assert.Equal(t, -1, Part1(testInput))
-	assert.Equal(t, -1, Part1(realInput))
+	// assert.Equal(t, -1, Part1(realInput))
 }
 
 func TestPart2(t *testing.T) {
 	assert.Equal(t, -1, Part2(testInput))
-	assert.Equal(t, -1, Part2(realInput))
+	// assert.Equal(t, -1, Part2(realInput))
 }
 
 var realInput = common.GetInput(` + day + `)
