@@ -3,6 +3,8 @@ package day6
 import (
 	"strconv"
 	"strings"
+
+	"github.com/jonasah/advent-of-code-2021/math"
 )
 
 func Part1(input string) int {
@@ -27,7 +29,7 @@ func doIt(input string, numDays int) int {
 		buckets[8] = numNew
 	}
 
-	return sum(buckets)
+	return math.Sum(buckets[:])
 }
 
 func parseInput(input string) [9]int {
@@ -40,12 +42,4 @@ func parseInput(input string) [9]int {
 	}
 
 	return buckets
-}
-
-func sum(buckets [9]int) int {
-	sum := 0
-	for _, v := range buckets {
-		sum += v
-	}
-	return sum
 }

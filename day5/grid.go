@@ -1,12 +1,14 @@
 package day5
 
+import "github.com/jonasah/advent-of-code-2021/math"
+
 type grid struct {
 	points [1000][1000]int
 }
 
 func (g *grid) addLine(line line) {
-	xdir := sign(line.p1.x - line.p0.x)
-	ydir := sign(line.p1.y - line.p0.y)
+	xdir := math.Sign(line.p1.x - line.p0.x)
+	ydir := math.Sign(line.p1.y - line.p0.y)
 
 	for p := line.p0; p.x != line.p1.x || p.y != line.p1.y; {
 		g.points[p.y][p.x]++
@@ -28,15 +30,4 @@ func (g *grid) getNumPointsWithOverlap() int {
 		}
 	}
 	return points
-}
-
-func sign(val int) int {
-	if val == 0 {
-		return 0
-	}
-	if val < 0 {
-		return -1
-	}
-
-	return 1
 }
