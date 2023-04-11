@@ -1,16 +1,20 @@
 package math
 
-import "math"
+import (
+	"math"
+
+	"github.com/jonasah/advent-of-code-2021/lib/slice"
+)
 
 func Sum(array []int) int {
-	sum := 0
-	for _, v := range array {
-		sum += v
-	}
-	return sum
+	return slice.Reduce(array, func(x, y int) int { return x + y }, 0)
 }
 
-func MinMax(array []int) (int, int) {
+func Product(array []int) int {
+	return slice.Reduce(array, func(x, y int) int { return x * y }, 1)
+}
+
+func MinMax(array ...int) (int, int) {
 	minVal, maxVal := math.MaxInt, math.MinInt
 
 	for _, v := range array {

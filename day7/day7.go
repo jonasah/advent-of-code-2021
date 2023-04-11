@@ -25,7 +25,7 @@ func Part2(input string) int {
 func calculateMinFuelNeeded(input string, fuelFn func(d int) int) int {
 	positions := parseInput(input)
 
-	minPos, maxPos := math.MinMax(positions)
+	minPos, maxPos := math.MinMax(positions...)
 	minFuelNeeded := m.MaxInt
 
 	for p := minPos; p <= maxPos; p++ {
