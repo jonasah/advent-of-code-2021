@@ -74,7 +74,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/jonasah/advent-of-code-2021/common"
+	"github.com/jonasah/advent-of-code-2021/lib/common"
 )
 
 func TestPart1(t *testing.T) {

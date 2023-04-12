@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/jonasah/advent-of-code-2021/common"
+	"github.com/jonasah/advent-of-code-2021/lib/common"
 )
 
 func Part1(input string) int {

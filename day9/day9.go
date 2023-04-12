@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jonasah/advent-of-code-2021/common"
 	h "github.com/jonasah/advent-of-code-2021/day9/heightmap"
+	"github.com/jonasah/advent-of-code-2021/lib/common"
 	"github.com/jonasah/advent-of-code-2021/lib/math"
 	"github.com/jonasah/advent-of-code-2021/lib/slice"
 )

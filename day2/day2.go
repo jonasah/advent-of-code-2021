@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jonasah/advent-of-code-2021/common"
+	"github.com/jonasah/advent-of-code-2021/lib/common"
 )
 
 type command struct {
