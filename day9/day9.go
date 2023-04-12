@@ -8,8 +8,8 @@ import (
 
 	"github.com/jonasah/advent-of-code-2021/common"
 	h "github.com/jonasah/advent-of-code-2021/day9/heightmap"
+	"github.com/jonasah/advent-of-code-2021/lib/math"
 	"github.com/jonasah/advent-of-code-2021/lib/slice"
-	"github.com/jonasah/advent-of-code-2021/math"
 )
 
 var topOffset = h.Offset{Row: -1, Col: 0}

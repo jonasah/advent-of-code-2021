@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jonasah/advent-of-code-2021/math"
+	"github.com/jonasah/advent-of-code-2021/lib/math"
 )
 
 func Part1(input string) int {

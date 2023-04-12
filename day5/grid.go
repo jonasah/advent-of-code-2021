@@ -1,6 +1,6 @@
 package day5
 
-import "github.com/jonasah/advent-of-code-2021/math"
+import "github.com/jonasah/advent-of-code-2021/lib/math"
 
 type grid struct {
 	points [1000][1000]int
