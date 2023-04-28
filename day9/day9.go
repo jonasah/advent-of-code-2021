@@ -6,24 +6,26 @@ import (
 	"strconv"
 	"strings"
 
-	h "github.com/jonasah/advent-of-code-2021/day9/heightmap"
 	"github.com/jonasah/advent-of-code-2021/lib/common"
+	"github.com/jonasah/advent-of-code-2021/lib/container"
 	"github.com/jonasah/advent-of-code-2021/lib/math"
 	"github.com/jonasah/advent-of-code-2021/lib/slice"
 )
 
-var topOffset = h.Offset{Row: -1, Col: 0}
-var bottomOffset = h.Offset{Row: 1, Col: 0}
-var leftOffset = h.Offset{Row: 0, Col: -1}
-var rightOffset = h.Offset{Row: 0, Col: 1}
-var allOffsets = []h.Offset{topOffset, bottomOffset, leftOffset, rightOffset}
+type heightMap container.Matrix[int]
+
+var topOffset = container.Offset{Row: -1, Col: 0}
+var bottomOffset = container.Offset{Row: 1, Col: 0}
+var leftOffset = container.Offset{Row: 0, Col: -1}
+var rightOffset = container.Offset{Row: 0, Col: 1}
+var allOffsets = []container.Offset{topOffset, bottomOffset, leftOffset, rightOffset}
 
 func Part1(input string) int {
 	heightMap := parseInput(input)
 
 	lowPoints := getLowPoints(heightMap)
 
-	return math.Sum(slice.Map(lowPoints, func(p h.Point) int { return heightMap.Get(p) + 1 }))
+	return math.Sum(slice.Map(lowPoints, func(p container.Point) int { return heightMap.Get(p) + 1 }))
 }
 
 func Part2(input string) int {
@@ -33,8 +35,8 @@ func Part2(input string) int {
 	basins := make([]int, len(lowPoints))
 
 	for i, lowPoint := range lowPoints {
-		unvisited := make([]h.Point, 1)
-		visited := make([]h.Point, 0, 1)
+		unvisited := make([]container.Point, 1)
+		visited := make([]container.Point, 0, 1)
 
 		unvisited[0] = lowPoint
 
@@ -61,47 +63,45 @@ func Part2(input string) int {
 	return math.Product(largestBasins)
 }
 
-func parseInput(input string) h.HeightMap {
+func parseInput(input string) heightMap {
 	lines := common.GetLines(input)
 
-	heightMap := h.NewHeightMap(len(lines), len(lines[0]))
+	htMap := container.NewMatrix[int](len(lines), len(lines[0]))
 	for r, line := range lines {
 		heightStrings := strings.Split(line, "")
 
 		for c, ht := range heightStrings {
 			height, _ := strconv.Atoi(ht)
-			heightMap.Set(h.Point{Row: r, Col: c}, height)
+			htMap.Set(container.Point{Row: r, Col: c}, height)
 		}
 	}
 
-	return heightMap
+	return htMap
 }
 
-func IsLowPoint(heightMap h.HeightMap, p h.Point) bool {
-	minNeighborHeight, _ := math.MinMax(slice.Map(allOffsets, func(o h.Offset) int { return heightMap.GetOrDefault(p.Add(o), m.MaxInt) })...)
-	return minNeighborHeight > heightMap.Get(p)
+func IsLowPoint(htMap heightMap, p container.Point) bool {
+	minNeighborHeight, _ := math.MinMax(slice.Map(allOffsets, func(o container.Offset) int { return htMap.GetOrDefault(p.Add(o), m.MaxInt) })...)
+	return minNeighborHeight > htMap.Get(p)
 }
 
-func getLowPoints(heightMap h.HeightMap) []h.Point {
-	points := make([]h.Point, 0)
-	for r := 0; r < heightMap.NumRows; r++ {
-		for c := 0; c < heightMap.NumCols; c++ {
-			p := h.Point{Row: r, Col: c}
-			if IsLowPoint(heightMap, p) {
-				points = append(points, p)
-			}
+func getLowPoints(htMap heightMap) []container.Point {
+	points := make([]container.Point, 0)
+	for it := htMap.Iter(); it.HasNext(); {
+		p := it.Next().Point
+		if IsLowPoint(htMap, p) {
+			points = append(points, p)
 		}
 	}
 	return points
 }
 
-func shouldVisit(point h.Point, visited []h.Point, unvisited []h.Point, heightMap h.HeightMap) bool {
-	exists := heightMap.Exists(point)
-	hasVisited := slice.IndexOf(visited, func(p h.Point) bool { return point.Equals(p) }) != -1
-	toBeVisited := slice.IndexOf(unvisited, func(p h.Point) bool { return point.Equals(p) }) != -1
+func shouldVisit(point container.Point, visited []container.Point, unvisited []container.Point, htMap heightMap) bool {
+	exists := htMap.Exists(point)
+	hasVisited := slice.IndexOf(visited, func(p container.Point) bool { return point.Equals(p) }) != -1
+	toBeVisited := slice.IndexOf(unvisited, func(p container.Point) bool { return point.Equals(p) }) != -1
 
 	if exists && !hasVisited && !toBeVisited {
-		height := heightMap.Get(point)
+		height := htMap.Get(point)
 		return height < 9
 	}
 
